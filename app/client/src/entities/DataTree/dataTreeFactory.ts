@@ -129,7 +129,7 @@ export class DataTreeFactory {
       dataTree.actionPaths && dataTree.actionPaths.push();
     });
     Object.keys(widgets).forEach(w => {
-      const widget = widgets[w];
+      const widget = { ...widgets[w] };
       const widgetMetaProps = widgetsMeta[w];
       const defaultMetaProps = WidgetFactory.getWidgetMetaPropertiesMap(
         widget.type,
@@ -138,7 +138,7 @@ export class DataTreeFactory {
         widget.type,
       );
       const derivedProps: any = {};
-      const dynamicBindings = widget.dynamicBindings || {};
+      const dynamicBindings = { ...widget.dynamicBindings } || {};
       Object.keys(derivedPropertyMap).forEach(propertyName => {
         derivedProps[propertyName] = derivedPropertyMap[propertyName].replace(
           /this./g,
