@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import BaseWidget, { WidgetProps, WidgetState } from "./BaseWidget";
+import BaseWidget, { WidgetProps, WidgetState } from "./NewBaseWidget";
 import { WidgetType } from "constants/WidgetConstants";
 import { WidgetPropertyValidationType } from "utils/ValidationFactory";
 import { VALIDATION_TYPES } from "constants/WidgetValidation";
@@ -12,7 +12,7 @@ const ChartComponent = lazy(() =>
   ),
 );
 
-class ChartWidget extends BaseWidget<ChartWidgetProps, WidgetState> {
+class ChartWidget extends React.Component<ChartWidgetProps, WidgetState> {
   static getPropertyValidationMap(): WidgetPropertyValidationType {
     return {
       xAxisName: VALIDATION_TYPES.TEXT,
@@ -23,7 +23,7 @@ class ChartWidget extends BaseWidget<ChartWidgetProps, WidgetState> {
     };
   }
 
-  getPageView() {
+  render() {
     return (
       <Suspense fallback={<Skeleton />}>
         <ChartComponent

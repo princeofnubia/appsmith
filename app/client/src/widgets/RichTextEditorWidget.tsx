@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import BaseWidget, { WidgetProps, WidgetState } from "./BaseWidget";
+import BaseWidget, { WidgetProps, WidgetState } from "./NewBaseWidget";
 import { WidgetType } from "constants/WidgetConstants";
 import { EventType } from "constants/ActionConstants";
 import { WidgetPropertyValidationType } from "utils/ValidationFactory";
@@ -17,7 +17,7 @@ const RichtextEditorComponent = lazy(() =>
   ),
 );
 
-class RichTextEditorWidget extends BaseWidget<
+class RichTextEditorWidget extends React.Component<
   RichTextEditorWidgetProps,
   WidgetState
 > {
@@ -57,9 +57,9 @@ class RichTextEditorWidget extends BaseWidget<
   }
 
   onValueChange = (text: string) => {
-    this.updateWidgetMetaProperty("text", text);
+    this.props.updateWidgetMetaProperty("text", text);
     if (this.props.onTextChange) {
-      super.executeAction({
+      this.props.executeAction({
         dynamicString: this.props.onTextChange,
         event: {
           type: EventType.ON_TEXT_CHANGE,
@@ -68,7 +68,7 @@ class RichTextEditorWidget extends BaseWidget<
     }
   };
 
-  getPageView() {
+  render() {
     return (
       <Suspense fallback={<Skeleton />}>
         <RichtextEditorComponent
